@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "NoSEfUfgr00=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\Sudoku.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\acica\\.nuget\\packages\\materialdesigncolors\\5.2.1\\materialdesigncolors.5.2.1.nupkg.sha512",
+    "C:\\Users\\acica\\.nuget\\packages\\materialdesignthemes\\5.2.1\\materialdesignthemes.5.2.1.nupkg.sha512",
+    "C:\\Users\\acica\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512"
+  ],
+  "logs": []
+}
