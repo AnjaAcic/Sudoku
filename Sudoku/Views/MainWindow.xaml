@@ -21,8 +21,8 @@
         <Border Grid.Row="0" CornerRadius="0,0,75,0" Padding="10">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
-                    <GradientStop Color="#8E44AD" Offset="0"/>
-                    <GradientStop Color="#C39BD3" Offset="1"/>
+                    <GradientStop Color="#5B2C6F" Offset="0"/>
+                    <GradientStop Color="#8E44AD" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
             <TextBlock Text="SUDOKU" 
@@ -39,8 +39,8 @@
                     BorderThickness="0" BorderBrush="Transparent">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#8E44AD" Offset="0"/>
-                        <GradientStop Color="#C39BD3" Offset="1"/>
+                        <GradientStop Color="#5B2C6F" Offset="0"/>
+                        <GradientStop Color="#8E44AD" Offset="1"/>
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
@@ -49,8 +49,8 @@
                     BorderThickness="0" BorderBrush="Transparent">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#8E44AD" Offset="0"/>
-                        <GradientStop Color="#C39BD3" Offset="1"/>
+                        <GradientStop Color="#5B2C6F" Offset="0"/>
+                        <GradientStop Color="#8E44AD" Offset="1"/>
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
@@ -59,8 +59,8 @@
                     BorderThickness="0" BorderBrush="Transparent">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#8E44AD" Offset="0"/>
-                        <GradientStop Color="#C39BD3" Offset="1"/>
+                        <GradientStop Color="#5B2C6F" Offset="0"/>
+                        <GradientStop Color="#8E44AD" Offset="1"/>
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
@@ -69,8 +69,8 @@
                     BorderThickness="0" BorderBrush="Transparent">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#8E44AD" Offset="0"/>
-                        <GradientStop Color="#C39BD3" Offset="1"/>
+                        <GradientStop Color="#5B2C6F" Offset="0"/>
+                        <GradientStop Color="#8E44AD" Offset="1"/>
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
