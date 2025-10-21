@@ -13,12 +13,8 @@
         "packagesPath": "C:\\Users\\acica\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\acica\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -52,7 +48,7 @@
           "dependencies": {
             "MaterialDesignThemes": {
               "target": "Package",
-              "version": "[5.2.1, )"
+              "version": "[5.3.0, )"
             }
           },
           "imports": [
@@ -74,7 +70,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

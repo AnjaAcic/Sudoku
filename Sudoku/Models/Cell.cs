@@ -52,6 +52,8 @@ namespace Sudoku.Models
             }
         }
 
+        public int Index { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

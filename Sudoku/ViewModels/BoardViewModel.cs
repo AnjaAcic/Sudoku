@@ -31,6 +31,16 @@ namespace Sudoku.ViewModels
 
         public string Elapsed => _timer.Elapsed;
 
+        public BoardViewModel()
+        {
+            Cells = new ObservableCollection<CellViewModel>(
+                Enumerable.Range(0, 81).Select(i =>
+                {
+                    var cell = new Cell() { Index = i };
+                    return new CellViewModel(cell);
+                }));
+        }
+
         public BoardViewModel(ISudokuGenerator gen,
             IValidationService val,
             IStorageService sto,
