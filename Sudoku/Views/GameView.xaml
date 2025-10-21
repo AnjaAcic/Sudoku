@@ -9,7 +9,9 @@
         Title="GameView" 
         Height="550"
         Width="400"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None">
     
     <Grid Margin="20">
         <Grid.RowDefinitions>

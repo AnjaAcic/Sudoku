@@ -6,10 +6,74 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Sudoku.Views"
         mc:Ignorable="d"
-        Title="Sudoku" Height="530" Width="380">
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="200">
-            <TextBox Text="Sudoku" FontSize="36" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,0,0,20"/>
+        Title="Sudoku" 
+        Height="550" 
+        Width="400"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" CornerRadius="0,0,75,0" Padding="10">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
+                    <GradientStop Color="#8E44AD" Offset="0"/>
+                    <GradientStop Color="#C39BD3" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <TextBlock Text="SUDOKU" 
+               Foreground="White"
+               FontSize="36" 
+               FontWeight="Bold" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Center"
+               TextAlignment="Center"/>
+        </Border>
+
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical">
+            <Button Content="Resume" Width="200" Height="45" FontSize="18" Foreground="White" Margin="10"
+                    BorderThickness="0" BorderBrush="Transparent">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#8E44AD" Offset="0"/>
+                        <GradientStop Color="#C39BD3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
+            <Button Content="Easy" Width="200" Height="45" FontSize="18" Foreground="White" Margin="10"
+                    BorderThickness="0" BorderBrush="Transparent">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#8E44AD" Offset="0"/>
+                        <GradientStop Color="#C39BD3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
+            <Button Content="Medium" Width="200" Height="45" FontSize="18" Foreground="White" Margin="10"
+                    BorderThickness="0" BorderBrush="Transparent">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#8E44AD" Offset="0"/>
+                        <GradientStop Color="#C39BD3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
+            <Button Content="Hard" Width="200" Height="45" FontSize="18" Foreground="White" Margin="10"
+                    BorderThickness="0" BorderBrush="Transparent">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#8E44AD" Offset="0"/>
+                        <GradientStop Color="#C39BD3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
         </StackPanel>
     </Grid>
 </Window>
