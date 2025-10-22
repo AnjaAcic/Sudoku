@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sudoku.Services
+namespace Sudoku.Models
 {
-    public interface IValidationService
+    public enum Difficulty
     {
-        bool Validate(int row, int column, int?[,] current);
+        Easy,
+        Medium,
+        Hard
     }
 }

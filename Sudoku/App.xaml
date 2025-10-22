@@ -15,6 +15,12 @@
                                              SecondaryColor="LightBlue" />
 
             </ResourceDictionary.MergedDictionaries>
+
+           <!-- 
+            <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" xmlns:local="clr-namespace:Sudoku.Helpers"/>
+            <local:IsErrorToBrushConverter x:Key="IsErrorToBrushConverter" xmlns:local="clr-namespace:Sudoku.Helpers"/>
+            <local:IsGivenToBrushConverter x:Key="IsGivenToBrushConverter" xmlns:local="clr-namespace:Sudoku.Helpers"/>
+            -->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

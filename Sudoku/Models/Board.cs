@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -9,21 +10,132 @@ using System.Threading.Tasks;
 
 namespace Sudoku.Models
 {
-    public class Board : INotifyPropertyChanged
+    public class Board
     {
-        public Cell[,] Cells { get; private set; } = new Cell[9, 9];
-        public int[,] Solution { get; set; } = new int[9, 9];
+        public ObservableCollection<Cell> Cells { get; } = new ObservableCollection<Cell>();
 
-        public Board() 
+        public Board()
         {
-            for (int i = 0; i < 9; i++)
-                for (int j = 0; j < 9; j++)
-                    Cells[i, j] = new Cell();
+            for (int r = 0; r < 9; r++)
+                for (int c = 0; c < 9; c++)
+                    Cells.Add(new Cell(r, c));
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null) =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        public Cell GetCell(int row, int col) => Cells[row * 9 + col];
+        public Cell GetCell(int index) => Cells[index];
+
+        public int?[,] ToArray()
+        {
+            var arr = new int?[9, 9];
+            foreach (var cell in Cells)
+                arr[cell.Row, cell.Col] = cell.Value;
+            return arr;
+        }
+
+        public void LoadFromArray(int?[,] arr)
+        {
+            for(int r = 0; r < 9; r++)
+                for(int c =0; c < 9; c++)
+                {
+                    var cell = GetCell(r, c);
+                    cell.Value = arr[r, c];
+                    cell.IsGiven = arr[r, c].HasValue;
+                    cell.IsError = false;
+                }
+        }
+
+        public void ResetToGiven()
+        {
+            foreach (var cell in Cells)
+                if (!cell.IsGiven)
+                    cell.Value = null;
+        }
+
+        public bool IsSafe(int row, int col, int val)
+        {
+            for(int c = 0; c < 9; c++)
+            {
+                if (c == col)
+                    continue;
+                var v = GetCell(row, c).Value;
+                if (v.HasValue && v.Value == val) 
+                    return false;
+            }
+
+            for (int r = 0; r < 9; r++)
+            {
+                if (r == row)
+                    continue;
+                var v = GetCell(r, col).Value;
+                if (v.HasValue && v.Value == val)
+                    return false;
+            }
+
+            int sr = (row / 3) * 3, sc = (col / 3) * 3;
+            for(int r = sr; r < sr + 3; r++)
+                for(int c = sc; c < sc + 3; c++)
+                {
+                    if (r == row && c == col)
+                        continue;
+                    var v = GetCell(r, c).Value;
+                    if (v.HasValue && v.Value == val)
+                        return false;
+                }
+
+            return true;
+        }
+
+        public void ValidateAll(bool showErrors)
+        {
+            foreach (var cell in Cells)
+                cell.IsError = false;
+
+            for(int r = 0; r < 9; r++)
+                for(int c = 0; c < 9; c++)
+                {
+                    var cell = GetCell(r, c);
+                    if (!cell.Value.HasValue)
+                        continue;
+                    int val = cell.Value.Value;
+
+                    for(int cc = 0; cc < 9; cc++)
+                    {
+                        if (cc == c)
+                            continue;
+                        var other = GetCell(r, cc);
+                        if(other.Value == val)
+                        {
+                            cell.IsError = showErrors;
+                            other.IsError = showErrors;
+                        }
+                    }
+
+                    for (int rr = 0; rr < 9; rr++)
+                    {
+                        if (rr == r)
+                            continue;
+                        var other = GetCell(rr, c);
+                        if (other.Value == val)
+                        {
+                            cell.IsError = showErrors;
+                            other.IsError = showErrors;
+                        }
+                    }
+
+                    int sr = (r / 3) * 3, sc = (c / 3) * 3;
+                    for (int rr = sr; rr < sr + 3; rr++)
+                        for (int cc = sc; cc < sc + 3; cc++)
+                        {
+                            if (rr == r && cc == c) continue;
+                            var other = GetCell(rr, cc);
+                            if (other.Value == val)
+                            {
+                                cell.IsError = showErrors;
+                                other.IsError = showErrors;
+                            }
+                        }
+                }
+        }
 
     }
 }
