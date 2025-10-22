@@ -1,84 +1,89 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Sudoku.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Windows.Threading;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
 
 namespace Sudoku.Views
 {
-    /// <summary>
-    /// Interaction logic for GameView.xaml
-    /// </summary>
     public partial class GameView : Window
     {
-        private DispatcherTimer gameTimer;
-        private TimeSpan elapsedTime;
-        private int mistakeCount;
-        private bool isPaused;
+        private readonly GameViewModel _vm;
+        private readonly BlurEffect _blur = new() { Radius = 0 };
+        private bool _isPaused;
 
         public GameView()
-        {
-            InitializeComponent();
-            InitializeGame();
-        }
-
-        private void InitializeGame()
-        {
-            elapsedTime = TimeSpan.Zero;
-            mistakeCount = 0;
-            isPaused = false;
-
-            gameTimer = new DispatcherTimer();
-            gameTimer.Interval = TimeSpan.FromSeconds(1);
-            gameTimer.Tick += Timer_Tick;
-            gameTimer.Start();
-        }
-
-        private void Timer_Tick(object? sender, EventArgs e)
-        {
-            if(!isPaused)
-            {
-                elapsedTime = elapsedTime.Add(TimeSpan.FromSeconds(1));
-            }
-        }
-
-        private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             
         }
 
-        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        public GameView(GameViewModel? vm = null)
         {
-
+            InitializeComponent();
+            _vm = vm ?? new GameViewModel();
+            DataContext = _vm;
         }
 
         private void btnPause_Click(object sender, RoutedEventArgs e)
         {
-            isPaused = true;
-            PauseOverlay.Visibility = Visibility.Collapsed;
-            gameTimer.Stop();
+            if (_isPaused) return;
+            _isPaused = true;
+            _vm.Pause();
 
-            PauseTime.Text = elapsedTime.ToString(@"mm\ss");
-            PauseMistake.Text = $"{mistakeCount}/3";
+            AnimateBlur(0, 6);
+            AnimateOverlay(PauseOverlay, Visibility.Visible, 0, 1);
         }
 
         private void btnResume_Click(object sender, RoutedEventArgs e)
         {
+            if (!_isPaused) return;
+            _isPaused = false;
+            _vm.Resume();
 
+            AnimateOverlay(PauseOverlay, Visibility.Collapsed, 1, 0);
+            AnimateBlur(6, 0, () => BoardContainer.Effect = null);
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
+            Close();
+        }
 
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            Close();
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !(e.Text.Length == 1 && char.IsDigit(e.Text[0]) && e.Text[0] != '0');
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox tb && int.TryParse(tb.Tag?.ToString(), out int index))
+                _vm.SelectCell(index);
+        }
+
+        private void AnimateBlur(double from, double to, Action? completed = null)
+        {
+            BoardContainer.Effect ??= _blur;
+            var anim = new DoubleAnimation(from, to, TimeSpan.FromMilliseconds(250));
+            if (completed != null)
+                anim.Completed += (s, e) => completed();
+            _blur.BeginAnimation(BlurEffect.RadiusProperty, anim);
+        }
+
+        private void AnimateOverlay(UIElement element, Visibility target, double from, double to)
+        {
+            element.Visibility = Visibility.Visible;
+            var anim = new DoubleAnimation(from, to, TimeSpan.FromMilliseconds(250));
+            if (target == Visibility.Collapsed)
+                anim.Completed += (s, e) => element.Visibility = Visibility.Collapsed;
+            element.BeginAnimation(OpacityProperty, anim);
         }
     }
 }

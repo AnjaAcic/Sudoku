@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:Sudoku"
-             StartupUri="Views/GameView.xaml">
+             xmlns:helpers="clr-namespace:Sudoku.Helpers"
+             StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,11 +17,11 @@
 
             </ResourceDictionary.MergedDictionaries>
 
-           <!-- 
-            <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" xmlns:local="clr-namespace:Sudoku.Helpers"/>
-            <local:IsErrorToBrushConverter x:Key="IsErrorToBrushConverter" xmlns:local="clr-namespace:Sudoku.Helpers"/>
-            <local:IsGivenToBrushConverter x:Key="IsGivenToBrushConverter" xmlns:local="clr-namespace:Sudoku.Helpers"/>
-            -->
+
+            <helpers:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <helpers:IsErrorToBrushConverter x:Key="IsErrorToBrushConverter"/>
+            <helpers:IsGivenToBrushConverter x:Key="IsGivenToBrushConverter"/>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

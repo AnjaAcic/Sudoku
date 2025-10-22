@@ -1,14 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sudoku.Services
 {
     public class SudokuSolverGenerator
     {
         private static Random _rand = new Random();
+
+        public static int?[,] GeneratePuzzle(string difficulty)
+        {
+            int?[,] board = new int?[9, 9];
+
+            FillDiagonalBlocks(board);
+
+            Solve(board);
+
+            int removals = difficulty.ToLower() switch
+            {
+                "easy" => 36,
+                "medium" => 48,
+                "hard" => 54,
+                _ => 48
+            };
+
+            RemoveNumbers(board, removals);
+
+            return board;
+        }
 
         public static bool Solve(int?[,] board)
         {
@@ -43,76 +61,50 @@ namespace Sudoku.Services
             }
 
             int sr = (row / 3) * 3, sc = (col / 3) * 3;
-            for(int r = sr; r < sr+3; r++)
-            {
-                for(int c = sc; c < sc+3; c++)
-                {
+            for (int r = sr; r < sr + 3; r++)
+                for (int c = sc; c < sc + 3; c++)
                     if (board[r, c] == val) return false;
-                }
-            }
 
             return true;
         }
-
-        public static int?[,] GeneratePuzzle(string difficulty)
+        private static void FillDiagonalBlocks(int?[,] board)
         {
-            int?[,] board = new int?[9,9];
-
-            FillDiagolanBlocks(board);
-
-            Solve(board);
-
-            int removals = difficulty.ToLower() switch
-            {
-                "easy" => 36,
-                "medium" => 48,
-                "hard" => 54,
-                _ => 48
-            };
-
-            RemoveNumbers(board, removals);
-
-            return board;
+            FillBlock(board, 0, 0); 
+            FillBlock(board, 3, 3);
+            FillBlock(board, 6, 6); 
         }
+        private static void FillBlock(int?[,] board, int startRow, int startCol)
+        {
+            var nums = Enumerable.Range(1, 9).ToArray();
+            Shuffle(nums);
+            int idx = 0;
 
+            for (int r = startRow; r < startRow + 3; r++)
+                for (int c = startCol; c < startCol + 3; c++)
+                    board[r, c] = nums[idx++];
+        }
         private static void RemoveNumbers(int?[,] board, int count)
         {
             int removed = 0;
-            while(removed < count)
+            while (removed < count)
             {
-                int r = _rand.Next(9), c = _rand.Next(9);
-                if (board[r,c] != null)
+                int r = _rand.Next(9);
+                int c = _rand.Next(9);
+                if (board[r, c] != null)
                 {
                     board[r, c] = null;
                     removed++;
                 }
             }
         }
-
-        private static void FillDiagolanBlocks(int?[,] board)
-        {
-            for (int i = 0; i < 9; i++)
-                FillBlock(board, i, i);
-        }
-
-        private static void FillBlock(int?[,] board, int row, int col)
-        {
-            var nums = Enumerable.Range(1, 9).ToArray();
-            Shuffle(nums);
-            int idx = 0;
-            for (int r = 0; r < 9; r++)
-                for (int c = 0; c < 9; c++)
-                    board[r, c] = nums[idx++];
-        }
-
         private static void Shuffle(int[] nums)
         {
             for (int i = nums.Length - 1; i > 0; i--)
             {
                 int j = _rand.Next(i + 1);
-                var t = nums[i];
+                int temp = nums[i];
                 nums[i] = nums[j];
-                nums[j] = t;
+                nums[j] = temp;
             }
         }
     }

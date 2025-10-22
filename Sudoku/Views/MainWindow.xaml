@@ -12,6 +12,8 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         WindowStyle="None">
+
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -36,7 +38,8 @@
 
         <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical">
             <Button Content="Resume" Width="200" Height="45" FontSize="18" Foreground="White" Margin="10"
-                    BorderThickness="0" BorderBrush="Transparent">
+                    BorderThickness="0" BorderBrush="Transparent"
+                    Name="btnResume" Click="btnResume_Click">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="#5B2C6F" Offset="0"/>
@@ -46,7 +49,8 @@
             </Button>
 
             <Button Content="Easy" Width="200" Height="45" FontSize="18" Foreground="White" Margin="10"
-                    BorderThickness="0" BorderBrush="Transparent">
+                    BorderThickness="0" BorderBrush="Transparent"
+                    Name="btnEasy" Click="btnEasy_Click">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="#5B2C6F" Offset="0"/>
@@ -56,7 +60,8 @@
             </Button>
 
             <Button Content="Medium" Width="200" Height="45" FontSize="18" Foreground="White" Margin="10"
-                    BorderThickness="0" BorderBrush="Transparent">
+                    BorderThickness="0" BorderBrush="Transparent"
+                    Name="btnMedium" Click="btnMedium_Click">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="#5B2C6F" Offset="0"/>
@@ -66,7 +71,8 @@
             </Button>
 
             <Button Content="Hard" Width="200" Height="45" FontSize="18" Foreground="White" Margin="10"
-                    BorderThickness="0" BorderBrush="Transparent">
+                    BorderThickness="0" BorderBrush="Transparent"
+                    Name="btnHard"  Click="btnHard_Click">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="#5B2C6F" Offset="0"/>
