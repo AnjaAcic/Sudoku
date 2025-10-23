@@ -75,7 +75,12 @@ namespace Sudoku.ViewModels
         public int Mistakes
         {
             get => _mistakes;
-            set { _mistakes = value; OnPropertyChanged(nameof(MistakeDisplay)); }
+            set 
+            { 
+                _mistakes = value; 
+                OnPropertyChanged(nameof(MistakeDisplay)); 
+                OnPropertyChanged(nameof(Mistakes)); 
+            }
         }
 
         public string MistakeDisplay => $"{Mistakes}/3";
@@ -125,10 +130,13 @@ namespace Sudoku.ViewModels
             var old = cell.Value;
             cell.Value = number == 0 ? null : (int?)number;
 
+            Board.ValidateAll(ShowErrors);
+
+            if (ShowErrors && number != 0 && cell.IsError)
+                Mistakes++;
+
             _undo.Push(new Move(SelectedIndex, old, cell.Value));
             (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
-
-            Board.ValidateAll(ShowErrors);
         }
 
         public void Undo()
