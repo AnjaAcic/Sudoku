@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sudoku.Models;
+using System;
 using System.Linq;
 
 namespace Sudoku.Services
@@ -7,7 +8,7 @@ namespace Sudoku.Services
     {
         private static Random _rand = new Random();
 
-        public static int?[,] GeneratePuzzle(string difficulty)
+        public static int?[,] GeneratePuzzle(Difficulty difficulty)
         {
             int?[,] board = new int?[9, 9];
 
@@ -15,12 +16,11 @@ namespace Sudoku.Services
 
             Solve(board);
 
-            int removals = difficulty.ToLower() switch
+            int removals = difficulty switch
             {
-                "easy" => 36,
-                "medium" => 48,
-                "hard" => 54,
-                _ => 48
+                Difficulty.Easy => 36,
+                Difficulty.Medium => 48,
+                Difficulty.Hard => 54
             };
 
             RemoveNumbers(board, removals);
@@ -67,6 +67,7 @@ namespace Sudoku.Services
 
             return true;
         }
+
         private static void FillDiagonalBlocks(int?[,] board)
         {
             FillBlock(board, 0, 0); 

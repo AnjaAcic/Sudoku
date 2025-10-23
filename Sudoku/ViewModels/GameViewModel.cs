@@ -17,13 +17,16 @@ namespace Sudoku.ViewModels
         private int _elapsedSeconds;
         private bool _showErrors = true;
         private int _selectedIndex = -1;
-        private string _difficulty = "medium";
-        private string _initialDifficulty = "medium";
+        private Difficulty _difficulty;
         private int _mistakes;
 
         public GameViewModel()
         {
-            NewGameCommand = new RelayCommand(o => NewGame((o?.ToString() ?? "medium")));
+            NewGameCommand = new RelayCommand(o => 
+            {
+                if (Enum.TryParse(o?.ToString(), true, out Difficulty diff))
+                    NewGame(diff);
+            });
             CellClickCommand = new RelayCommand(o => SelectCell(ConvertToInt(o)));
             NumberCommand = new RelayCommand(o => EnterNumber(ConvertToInt(o)));
             UndoCommand = new RelayCommand(o => Undo(), o => _undo.CanUndo);
@@ -37,7 +40,7 @@ namespace Sudoku.ViewModels
             _timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
             _timer.Tick += (s, e) => ElapsedSeconds++;
 
-            NewGame("medium");
+            NewGame(_difficulty);
             _timer.Start();
         }
 
@@ -85,7 +88,7 @@ namespace Sudoku.ViewModels
 
         public string MistakeDisplay => $"{Mistakes}/3";
 
-        public string Difficulty
+        public Difficulty Difficulty
         {
             get => _difficulty;
             set { _difficulty = value; OnPropertyChanged(); }
@@ -103,10 +106,9 @@ namespace Sudoku.ViewModels
             }
         }
 
-        public void NewGame(string difficulty)
+        public void NewGame(Difficulty difficulty)
         {
             Difficulty = difficulty;
-            _initialDifficulty = difficulty;
             _undo.Clear();
             ElapsedSeconds = 0;
             Mistakes = 0;
@@ -196,7 +198,7 @@ namespace Sudoku.ViewModels
             _undo.Clear();
             ElapsedSeconds = 0;
             Mistakes = 0;
-            Difficulty = _initialDifficulty;
+            Difficulty = _difficulty;
             Board.ValidateAll(ShowErrors);
             (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
         }

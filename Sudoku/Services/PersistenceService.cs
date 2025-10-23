@@ -9,15 +9,15 @@ namespace Sudoku.Services
 {
     public class SaveDto
     {
-        public string Difficulty { get; set; } = "medium";
+        public Difficulty Difficulty { get; set; } 
         public int ElapsedSeconds { get; set; }
         public int Mistakes { get; set; }
-        public int?[,] Cells { get; set; } = new int?[9, 9]; // 2D array
+        public int?[,] Cells { get; set; } = new int?[9, 9]; 
     }
 
     public static class PersistenceService
     {
-        public static void Save(Board board, string difficulty, int elapsedSeconds, int mistakes, string path)
+        public static void Save(Board board, Difficulty difficulty, int elapsedSeconds, int mistakes, string path)
         {
             var dto = new SaveDto
             {
