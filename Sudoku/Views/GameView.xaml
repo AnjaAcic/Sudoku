@@ -94,7 +94,8 @@
                                     Tag="{Binding Index}"
                                     GotFocus="TextBox_GotFocus"
                                     MaxLength="1"
-                                    PreviewTextInput="TextBox_PreviewTextInput"/>
+                                    PreviewTextInput="TextBox_PreviewTextInput"
+                                    PreviewKeyDown="TextBox_PreviewKeyDown"/>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

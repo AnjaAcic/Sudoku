@@ -51,7 +51,16 @@ namespace Sudoku.Views
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !(e.Text.Length == 1 && char.IsDigit(e.Text[0]) && e.Text[0] != '0');
+            e.Handled = !int.TryParse(e.Text, out int value) || value < 1 || value > 9;
+
+            if (!e.Handled)
+            {
+                if (sender is TextBox tb && tb.Tag is int index)
+                {
+                    _vm.SelectCell(index);
+                    _vm.EnterNumber(value);
+                }
+            }
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -68,5 +77,19 @@ namespace Sudoku.Views
                 anim.Completed += (s, e) => element.Visibility = Visibility.Collapsed;
             element.BeginAnimation(OpacityProperty, anim);
         }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Back || e.Key == Key.Delete)
+            {
+                if (sender is TextBox tb && tb.Tag is int index)
+                {
+                    _vm.SelectCell(index);
+                    _vm.EnterNumber(0); 
+                    e.Handled = true;
+                }
+            }
+        }
+
     }
 }
