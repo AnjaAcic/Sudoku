@@ -3,9 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Sudoku.Services
 {
@@ -14,9 +12,7 @@ namespace Sudoku.Services
         public string Difficulty { get; set; } = "medium";
         public int ElapsedSeconds { get; set; }
         public int Mistakes { get; set; }
-        public int?[,] Cells { get; set; } = new int?[9, 9];
-
-
+        public int?[,] Cells { get; set; } = new int?[9, 9]; // 2D array
     }
 
     public static class PersistenceService
@@ -28,7 +24,7 @@ namespace Sudoku.Services
                 Difficulty = difficulty,
                 ElapsedSeconds = elapsedSeconds,
                 Mistakes = mistakes,
-                Cells = board.ToArray()
+                Cells = board.ToArray() 
             };
 
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -38,7 +34,15 @@ namespace Sudoku.Services
         public static SaveDto Load(string path)
         {
             var json = File.ReadAllText(path);
-            return JsonSerializer.Deserialize<SaveDto>(json)!;   
+            return JsonSerializer.Deserialize<SaveDto>(json)!;
+        }
+
+        public static Board ToBoard(SaveDto dto)
+        {
+            var board = new Board();
+            board.LoadFromArray(dto.Cells); 
+            return board;
         }
     }
+
 }

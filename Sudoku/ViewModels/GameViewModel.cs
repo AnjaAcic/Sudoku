@@ -18,6 +18,7 @@ namespace Sudoku.ViewModels
         private bool _showErrors = true;
         private int _selectedIndex = -1;
         private string _difficulty = "medium";
+        private string _initialDifficulty = "medium";
         private int _mistakes;
 
         public GameViewModel()
@@ -40,7 +41,11 @@ namespace Sudoku.ViewModels
             _timer.Start();
         }
 
-        private int ConvertToInt(object? o) => o == null ? -1 : int.Parse(o.ToString()!);
+        private int ConvertToInt(object? o)
+        {
+            if (o == null) return -1;
+            return int.TryParse(o.ToString(), out int result) ? result : 1;
+        } 
 
         public ICommand NewGameCommand { get; }
         public ICommand CellClickCommand { get; }
@@ -96,6 +101,7 @@ namespace Sudoku.ViewModels
         public void NewGame(string difficulty)
         {
             Difficulty = difficulty;
+            _initialDifficulty = difficulty;
             _undo.Clear();
             ElapsedSeconds = 0;
             Mistakes = 0;
@@ -115,10 +121,13 @@ namespace Sudoku.ViewModels
             if (SelectedIndex < 0) return;
             var cell = Board.GetCell(SelectedIndex);
             if (cell.IsGiven) return;
+
             var old = cell.Value;
             cell.Value = number == 0 ? null : (int?)number;
+
             _undo.Push(new Move(SelectedIndex, old, cell.Value));
             (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
+
             Board.ValidateAll(ShowErrors);
         }
 
@@ -177,6 +186,9 @@ namespace Sudoku.ViewModels
         {
             Board.ResetToGiven();
             _undo.Clear();
+            ElapsedSeconds = 0;
+            Mistakes = 0;
+            Difficulty = _initialDifficulty;
             Board.ValidateAll(ShowErrors);
             (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
         }

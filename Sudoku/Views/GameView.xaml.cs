@@ -11,13 +11,7 @@ namespace Sudoku.Views
     public partial class GameView : Window
     {
         private readonly GameViewModel _vm;
-        private readonly BlurEffect _blur = new() { Radius = 0 };
         private bool _isPaused;
-
-        public GameView()
-        {
-            
-        }
 
         public GameView(GameViewModel? vm = null)
         {
@@ -32,7 +26,6 @@ namespace Sudoku.Views
             _isPaused = true;
             _vm.Pause();
 
-            AnimateBlur(0, 6);
             AnimateOverlay(PauseOverlay, Visibility.Visible, 0, 1);
         }
 
@@ -43,12 +36,11 @@ namespace Sudoku.Views
             _vm.Resume();
 
             AnimateOverlay(PauseOverlay, Visibility.Collapsed, 1, 0);
-            AnimateBlur(6, 0, () => BoardContainer.Effect = null);
         }
 
-        private void btnExit_Click(object sender, RoutedEventArgs e)
+        private void btnRestart_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            _vm.Reset();
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -66,15 +58,6 @@ namespace Sudoku.Views
         {
             if (sender is TextBox tb && int.TryParse(tb.Tag?.ToString(), out int index))
                 _vm.SelectCell(index);
-        }
-
-        private void AnimateBlur(double from, double to, Action? completed = null)
-        {
-            BoardContainer.Effect ??= _blur;
-            var anim = new DoubleAnimation(from, to, TimeSpan.FromMilliseconds(250));
-            if (completed != null)
-                anim.Completed += (s, e) => completed();
-            _blur.BeginAnimation(BlurEffect.RadiusProperty, anim);
         }
 
         private void AnimateOverlay(UIElement element, Visibility target, double from, double to)
