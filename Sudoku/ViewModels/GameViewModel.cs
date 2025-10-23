@@ -165,13 +165,16 @@ namespace Sudoku.ViewModels
                         if (arr[r, c] == null)
                         {
                             var idx = r * 9 + c;
-                            var cell = Board.GetCell(idx);
-                            var old = cell.Value;
-                            cell.Value = copy[r, c];
-                            _undo.Push(new Move(idx, old, cell.Value));
-                            Board.ValidateAll(ShowErrors);
-                            (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
-                            return;
+                            if(idx == SelectedIndex)
+                            {
+                                var cell = Board.GetCell(idx);
+                                var old = cell.Value;
+                                cell.Value = copy[r, c];
+                                _undo.Push(new Move(idx, old, cell.Value));
+                                Board.ValidateAll(ShowErrors);
+                                (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
+                                return;
+                            }  
                         }
                     }
             }
