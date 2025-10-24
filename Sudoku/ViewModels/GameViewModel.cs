@@ -19,6 +19,10 @@ namespace Sudoku.ViewModels
         private int _selectedIndex = -1;
         private Difficulty _difficulty;
         private int _mistakes;
+        private bool _isGameOver;
+        private int _score;
+        private string _gameOverMessage;
+        private int _starCount;
 
         public GameViewModel()
         {
@@ -35,13 +39,20 @@ namespace Sudoku.ViewModels
             LoadCommand = new RelayCommand(o => Load(o?.ToString() ?? "sudoku_save.json"));
             ResetCommand = new RelayCommand(o => Reset());
             EraseCommand = new RelayCommand(o => EnterNumber(0));
+            NewGameScreenCommand = new RelayCommand(o => GoToMain());
 
+            Score = 0;
 
             _timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
             _timer.Tick += (s, e) => ElapsedSeconds++;
 
             NewGame(_difficulty);
             _timer.Start();
+        }
+
+        private void GoToMain()
+        {
+            OnRequestMainMenu?.Invoke(this, EventArgs.Empty);
         }
 
         private int ConvertToInt(object? o)
@@ -59,6 +70,7 @@ namespace Sudoku.ViewModels
         public ICommand LoadCommand { get; }
         public ICommand ResetCommand { get; }
         public ICommand EraseCommand { get; }
+        public ICommand NewGameScreenCommand { get; }
 
 
         public bool ShowErrors
@@ -106,15 +118,60 @@ namespace Sudoku.ViewModels
             }
         }
 
+        public bool IsGameOver
+        {
+            get => _isGameOver;
+            set
+            {
+                _isGameOver = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int Score
+        {
+            get => _score;
+            set
+            {
+                _score = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(ScoreDisplay));
+            }
+        }
+
+        public string ScoreDisplay => _score.ToString();
+
+        public string GameOverMessage
+        {
+            get => _gameOverMessage;
+            set
+            {
+                _gameOverMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int StarCount
+        {
+            get => _starCount;
+            set
+            {
+                _starCount = value;
+                OnPropertyChanged();
+            }
+        }
+
         public void NewGame(Difficulty difficulty)
         {
             Difficulty = difficulty;
             _undo.Clear();
             ElapsedSeconds = 0;
             Mistakes = 0;
+            Score = 0;
             var arr = SudokuSolverGenerator.GeneratePuzzle(difficulty);
             Board.LoadFromArray(arr);
             Board.ValidateAll(ShowErrors);
+            Resume();
         }
 
         public void SelectCell(int index)
@@ -134,11 +191,20 @@ namespace Sudoku.ViewModels
 
             Board.ValidateAll(ShowErrors);
 
-            if (ShowErrors && number != 0 && cell.IsError)
+            if (ShowErrors && number != 0 && cell.IsError) {
                 Mistakes++;
+                Score -= 5;
+            }
+            else if(number != 0 && !cell.IsError)
+            {
+                Score += 10;
+            }
+
+            CheckGameOver();
 
             _undo.Push(new Move(SelectedIndex, old, cell.Value));
             (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
+
         }
 
         public void Undo()
@@ -206,11 +272,54 @@ namespace Sudoku.ViewModels
             (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
         }
 
-        public void Pause() => _timer.Stop();
-        public void Resume() => _timer.Start();
+        public void Pause()
+        {
+            if(_timer.IsEnabled)
+                _timer.Stop();
+        } 
+        public void Resume(){
+            if(!IsGameOver)
+                _timer.Start();
+        } 
+
+        private void CheckGameOver()
+        {
+            if (Mistakes >= 3)
+            {
+                EndGame(false);
+            }
+            else if (Board.IsComplete())
+            {
+                EndGame(true);
+            }
+        }
+
+        private void EndGame(bool isWin)
+        {
+            Pause();
+            IsGameOver = true;
+
+            GameOverMessage = isWin ? "Congratulations! You solved it!" : "Game Over! 3 mistakes reached!";
+
+            if (isWin)
+            {
+                if (Mistakes == 0) 
+                    StarCount = 3;
+                else if (Mistakes == 1) 
+                    StarCount = 2;
+                else 
+                    StarCount = 1;
+            }
+            else
+            {
+                StarCount = 0;
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
+        public event EventHandler? OnRequestMainMenu;
     }
 }

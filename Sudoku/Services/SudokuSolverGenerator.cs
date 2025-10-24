@@ -38,7 +38,7 @@ namespace Sudoku.Services
                     {
                         for (int v = 1; v <= 9; v++)
                         {
-                            if (IsSafe(board, r, c, v))
+                            if (IsValidPlacement(board, r, c, v))
                             {
                                 board[r, c] = v;
                                 if (Solve(board)) return true;
@@ -52,7 +52,7 @@ namespace Sudoku.Services
             return true;
         }
 
-        public static bool IsSafe(int?[,] board, int row, int col, int val)
+        public static bool IsValidPlacement(int?[,] board, int row, int col, int val)
         {
             for (int i = 0; i < 9; i++)
             {

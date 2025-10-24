@@ -78,6 +78,14 @@ namespace Sudoku.Views
             element.BeginAnimation(OpacityProperty, anim);
         }
 
+        public void ShowGameOverOverlay()
+        {
+            GameOverOverlay.Visibility = Visibility.Visible;
+            var anim = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(300));
+            GameOverOverlay.BeginAnimation(OpacityProperty, anim);
+        }
+
+
         private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Back || e.Key == Key.Delete)

@@ -16,6 +16,8 @@
     <Window.Resources>
         <helpers:IsErrorToBrushConverter x:Key="IsErrorToBrushConverter"/>
         <helpers:IsGivenToBrushConverter x:Key="IsGivenToBrushConverter"/>
+        <helpers:StarConverter x:Key="StarConverter"/>
+
     </Window.Resources>
 
     <Grid x:Name="BoardContainer" Margin="20">
@@ -55,17 +57,17 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            
-            <StackPanel Grid.Column="0" Margin="10,0">
-                <TextBlock Text="Difficulty" FontWeight="Bold" HorizontalAlignment="Center"/>
-                <TextBlock Text="{Binding Difficulty}" HorizontalAlignment="Center"/>
-            </StackPanel>
 
-            <StackPanel Grid.Column="1" HorizontalAlignment="Center" Margin="10,0">
+            <StackPanel Grid.Column="0" Margin="10,0">
                 <TextBlock Text="Mistake" FontWeight="Bold" HorizontalAlignment="Center"/>
                 <TextBlock Text="{Binding MistakeDisplay}" HorizontalAlignment="Center"/>
             </StackPanel>
-    
+
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" Margin="10,0">
+                <TextBlock Text="{Binding Score}" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding Difficulty}" HorizontalAlignment="Center"/>
+            </StackPanel>
+
             <StackPanel Grid.Column="2" Margin="10,0">
                 <TextBlock Text="Timer" FontWeight="Bold" HorizontalAlignment="Center"/>
                 <TextBlock Text="{Binding TimerDisplay}" HorizontalAlignment="Center"/>
@@ -183,5 +185,61 @@
                 </StackPanel>                
             </Border>
         </Grid>
+
+        <Grid x:Name="GameOverOverlay"
+             Background="#80000000"
+             Visibility="{Binding IsGameOver, Converter={StaticResource BoolToVisibilityConverter}}"
+             Grid.RowSpan="5"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch">
+            
+            <Border Background="White" CornerRadius="12" Padding="18" MaxWidth="300" MinWidth="260" 
+            VerticalAlignment="Center" HorizontalAlignment="Center" 
+            Effect="{DynamicResource MaterialDesignElevationShadow3}">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding GameOverMessage}" 
+                       FontSize="16" FontWeight="Bold"
+                       Margin="0,0,0,10" HorizontalAlignment="Center"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+                        <materialDesign:PackIcon Kind="Star"
+                                         Width="28" Height="28"
+                                         Foreground="{Binding StarCount, Converter={StaticResource StarConverter}, ConverterParameter=1}"
+                                         Margin="2"/>
+                        <materialDesign:PackIcon Kind="Star"
+                                         Width="28" Height="28"
+                                         Foreground="{Binding StarCount, Converter={StaticResource StarConverter}, ConverterParameter=2}"
+                                         Margin="2"/>
+                        <materialDesign:PackIcon Kind="Star"
+                                         Width="28" Height="28"
+                                         Foreground="{Binding StarCount, Converter={StaticResource StarConverter}, ConverterParameter=3}"
+                                         Margin="2"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                        <TextBlock Text="Score:" FontWeight="Bold" Margin="0,0,0,2"/>
+                        <TextBlock Text="{Binding ScoreDisplay}" HorizontalAlignment="Center"/>
+
+                        <TextBlock Text="Time:" FontWeight="Bold" Margin="0,6,0,2"/>
+                        <TextBlock Text="{Binding TimerDisplay}" HorizontalAlignment="Center"/>
+
+                        <TextBlock Text="Mistakes:" FontWeight="Bold" Margin="0,6,0,2"/>
+                        <TextBlock Text="{Binding MistakeDisplay}" HorizontalAlignment="Center"/>
+
+                        <TextBlock Text="Difficulty:" FontWeight="Bold" Margin="0,6,0,2"/>
+                        <TextBlock Text="{Binding Difficulty}" HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <Button Content="Restart" Width="140" Height="36" Margin="0,16,0,0" 
+                    Command="{Binding ResetCommand}"
+                    Background="#1565C0" Foreground="White"/>
+
+                    <Button Content="New Game" Width="140" Height="36" Margin="0,16,0,0" 
+                     Command="{Binding NewGameScreenCommand}"
+                     Background="#1565C0" Foreground="White"/>      
+                </StackPanel>
+            </Border>
+        </Grid>
+
     </Grid>
 </Window>

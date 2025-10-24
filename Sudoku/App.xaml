@@ -21,7 +21,8 @@
             <helpers:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
             <helpers:IsErrorToBrushConverter x:Key="IsErrorToBrushConverter"/>
             <helpers:IsGivenToBrushConverter x:Key="IsGivenToBrushConverter"/>
-            
+            <helpers:StarConverter x:Key="StarConverter"/>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

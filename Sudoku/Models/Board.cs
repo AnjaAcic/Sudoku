@@ -51,37 +51,14 @@ namespace Sudoku.Models
                     cell.Value = null;
         }
 
-        public bool IsSafe(int row, int col, int val)
+
+        public bool IsComplete()
         {
-            for(int c = 0; c < 9; c++)
+            foreach (var cell in Cells)
             {
-                if (c == col)
-                    continue;
-                var v = GetCell(row, c).Value;
-                if (v.HasValue && v.Value == val) 
+                if (!cell.Value.HasValue || cell.IsError)
                     return false;
             }
-
-            for (int r = 0; r < 9; r++)
-            {
-                if (r == row)
-                    continue;
-                var v = GetCell(r, col).Value;
-                if (v.HasValue && v.Value == val)
-                    return false;
-            }
-
-            int sr = (row / 3) * 3, sc = (col / 3) * 3;
-            for(int r = sr; r < sr + 3; r++)
-                for(int c = sc; c < sc + 3; c++)
-                {
-                    if (r == row && c == col)
-                        continue;
-                    var v = GetCell(r, c).Value;
-                    if (v.HasValue && v.Value == val)
-                        return false;
-                }
-
             return true;
         }
 
