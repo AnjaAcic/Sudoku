@@ -14,15 +14,7 @@ namespace Sudoku.ViewModels
         public Board Board { get; } = new Board();
         private readonly UndoService _undo = new UndoService();
         private readonly DispatcherTimer _timer;
-        private int _elapsedSeconds;
-        private bool _showErrors = true;
-        private int _selectedIndex = -1;
-        private Difficulty _difficulty;
-        private int _mistakes;
-        private bool _isGameOver;
-        private int _score;
-        private string _gameOverMessage;
-        private int _starCount;
+        
 
         public GameViewModel()
         {
@@ -37,9 +29,10 @@ namespace Sudoku.ViewModels
             HintCommand = new RelayCommand(o => Hint());
             SaveCommand = new RelayCommand(o => Save(o?.ToString() ?? "sudoku_save.json"));
             LoadCommand = new RelayCommand(o => Load(o?.ToString() ?? "sudoku_save.json"));
-            ResetCommand = new RelayCommand(o => Reset());
+            RestartCommand = new RelayCommand(o => Reset());
             EraseCommand = new RelayCommand(o => EnterNumber(0));
             NewGameScreenCommand = new RelayCommand(o => GoToMain());
+            PauseCommand = new RelayCommand(o => PauseGame());
 
             Score = 0;
 
@@ -68,11 +61,13 @@ namespace Sudoku.ViewModels
         public ICommand HintCommand { get; }
         public ICommand SaveCommand { get; }
         public ICommand LoadCommand { get; }
-        public ICommand ResetCommand { get; }
+        public ICommand RestartCommand { get; }
         public ICommand EraseCommand { get; }
         public ICommand NewGameScreenCommand { get; }
+        public ICommand PauseCommand { get; }
 
 
+        private bool _showErrors = true;
         public bool ShowErrors
         {
             get => _showErrors;
@@ -81,12 +76,15 @@ namespace Sudoku.ViewModels
 
         public string TimerDisplay => TimeSpan.FromSeconds(_elapsedSeconds).ToString(@"mm\:ss");
 
+        private int _elapsedSeconds;
         public int ElapsedSeconds
         {
             get => _elapsedSeconds;
             private set { _elapsedSeconds = value; OnPropertyChanged(nameof(TimerDisplay)); }
         }
 
+
+        private int _mistakes;
         public int Mistakes
         {
             get => _mistakes;
@@ -100,12 +98,16 @@ namespace Sudoku.ViewModels
 
         public string MistakeDisplay => $"{Mistakes}/3";
 
+
+        private Difficulty _difficulty;
         public Difficulty Difficulty
         {
             get => _difficulty;
             set { _difficulty = value; OnPropertyChanged(); }
         }
 
+
+        private int _selectedIndex = -1;
         public int SelectedIndex
         {
             get => _selectedIndex;
@@ -118,6 +120,8 @@ namespace Sudoku.ViewModels
             }
         }
 
+
+        private bool _isGameOver;
         public bool IsGameOver
         {
             get => _isGameOver;
@@ -128,6 +132,8 @@ namespace Sudoku.ViewModels
             }
         }
 
+
+        private int _score;
         public int Score
         {
             get => _score;
@@ -141,6 +147,8 @@ namespace Sudoku.ViewModels
 
         public string ScoreDisplay => _score.ToString();
 
+
+        private string _gameOverMessage;
         public string GameOverMessage
         {
             get => _gameOverMessage;
@@ -151,6 +159,8 @@ namespace Sudoku.ViewModels
             }
         }
 
+
+        private int _starCount;
         public int StarCount
         {
             get => _starCount;
@@ -160,6 +170,19 @@ namespace Sudoku.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        private bool _isPaused;
+
+        public bool IsPaused
+        {
+            get { return _isPaused; }
+            set 
+            {    
+                _isPaused = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public void NewGame(Difficulty difficulty)
         {
@@ -268,6 +291,7 @@ namespace Sudoku.ViewModels
             ElapsedSeconds = 0;
             Mistakes = 0;
             Difficulty = _difficulty;
+            IsGameOver = false;
             Board.ValidateAll(ShowErrors);
             (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
         }
@@ -314,6 +338,12 @@ namespace Sudoku.ViewModels
             {
                 StarCount = 0;
             }
+        }
+
+        private void PauseGame()
+        {
+            Pause();
+            IsPaused = true;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

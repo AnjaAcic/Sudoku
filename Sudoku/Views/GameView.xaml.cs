@@ -1,5 +1,6 @@
 ﻿using Sudoku.ViewModels;
 using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -18,6 +19,19 @@ namespace Sudoku.Views
             InitializeComponent();
             _vm = vm ?? new GameViewModel();
             DataContext = _vm;
+
+            _vm.PropertyChanged += Vm_PropertyChanged;
+        }
+
+        private void Vm_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == nameof(_vm.IsPaused))
+            {
+                if (_vm.IsPaused)
+                    AnimateOverlay(PauseOverlay, Visibility.Visible, 0, 1);
+                else
+                    AnimateOverlay(PauseOverlay, Visibility.Collapsed, 1, 0);
+            }
         }
 
         private void btnPause_Click(object sender, RoutedEventArgs e)

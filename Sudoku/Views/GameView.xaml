@@ -45,7 +45,7 @@
             
             <Button Name="btnPause"  Grid.Column="2" 
                 Width="23" Height="23" 
-                Click="btnPause_Click"
+                Command="{Binding PauseCommand}"
                 Style="{StaticResource MaterialDesignIconButton}">
                 <materialDesign:PackIcon Kind="Pause"/>
             </Button>
@@ -153,7 +153,7 @@
 
         <Grid x:Name="PauseOverlay"
               Background="#80000000"
-              Visibility="Collapsed"
+              Visibility="{Binding IsPaused, Converter={StaticResource BoolToVisibilityConverter}}"
               Opacity="0"
               Grid.RowSpan="5"
               HorizontalAlignment="Stretch"
@@ -181,7 +181,9 @@
                         <Button x:Name="btnResume" Content="Resume" Width="140" Height="36" Margin="0,0,0,8" 
                                 Click="btnResume_Click"
                                 Background="#1565C0" Foreground="White"/>
-                        <Button x:Name="btnRestart" Content="Restart" Width="140" Height="36" Click="btnRestart_Click"
+                        <Button x:Name="btnRestart" Content="Restart" Width="140" Height="36" 
+                                Command="{Binding RestartCommand}"
+                                Click="btnRestart_Click"
                                 Background="#1565C0" Foreground="White"/>
                     </StackPanel>
                 </StackPanel>                
