@@ -3,20 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|c:\\users\\acica\\onedrive\\desktop\\cetvrta godina\\interakcija covjek racunar\\sudoku\\sudoku\\views\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|solutionrelative:sudoku\\views\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|c:\\users\\acica\\onedrive\\desktop\\cetvrta godina\\interakcija covjek racunar\\sudoku\\sudoku\\views\\gameview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|solutionrelative:sudoku\\views\\gameview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|c:\\users\\acica\\onedrive\\desktop\\cetvrta godina\\interakcija covjek racunar\\sudoku\\sudoku\\helpers\\sudokuborderthicknessconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|solutionrelative:sudoku\\helpers\\sudokuborderthicknessconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|c:\\users\\acica\\onedrive\\desktop\\cetvrta godina\\interakcija covjek racunar\\sudoku\\sudoku\\models\\cell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|solutionrelative:sudoku\\models\\cell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|c:\\users\\acica\\onedrive\\desktop\\cetvrta godina\\interakcija covjek racunar\\sudoku\\sudoku\\viewmodels\\gameviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|solutionrelative:sudoku\\viewmodels\\gameviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|c:\\users\\acica\\onedrive\\desktop\\cetvrta godina\\interakcija covjek racunar\\sudoku\\sudoku\\views\\gameview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|solutionrelative:sudoku\\views\\gameview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|c:\\users\\acica\\onedrive\\desktop\\cetvrta godina\\interakcija covjek racunar\\sudoku\\sudoku\\views\\gameview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|solutionrelative:sudoku\\views\\gameview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|c:\\users\\acica\\onedrive\\desktop\\cetvrta godina\\interakcija covjek racunar\\sudoku\\sudoku\\views\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|solutionrelative:sudoku\\views\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|c:\\users\\acica\\onedrive\\desktop\\cetvrta godina\\interakcija covjek racunar\\sudoku\\sudoku\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -27,16 +35,8 @@
       "RelativeMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|solutionrelative:sudoku\\models\\board.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|c:\\users\\acica\\onedrive\\desktop\\cetvrta godina\\interakcija covjek racunar\\sudoku\\sudoku\\models\\cell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|solutionrelative:sudoku\\models\\cell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|c:\\users\\acica\\onedrive\\desktop\\cetvrta godina\\interakcija covjek racunar\\sudoku\\sudoku\\models\\difficulty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|solutionrelative:sudoku\\models\\difficulty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|c:\\users\\acica\\onedrive\\desktop\\cetvrta godina\\interakcija covjek racunar\\sudoku\\sudoku\\services\\sudokusolvergenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|solutionrelative:sudoku\\services\\sudokusolvergenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9E7DBC53-3BEC-4EEE-A36A-AEC1BE71631C}|Sudoku\\Sudoku.csproj|c:\\users\\acica\\onedrive\\desktop\\cetvrta godina\\interakcija covjek racunar\\sudoku\\sudoku\\services\\undoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -62,36 +62,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "GameViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\ViewModels\\GameViewModel.cs",
-              "RelativeDocumentMoniker": "Sudoku\\ViewModels\\GameViewModel.cs",
-              "ToolTip": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\ViewModels\\GameViewModel.cs",
-              "RelativeToolTip": "Sudoku\\ViewModels\\GameViewModel.cs",
-              "ViewState": "AgIAACQAAAAA4MzMzMz8vzYAAAA9AAAAAAAAAA==",
+              "Title": "SudokuBorderThicknessConverter.cs",
+              "DocumentMoniker": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\Helpers\\SudokuBorderThicknessConverter.cs",
+              "RelativeDocumentMoniker": "Sudoku\\Helpers\\SudokuBorderThicknessConverter.cs",
+              "ToolTip": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\Helpers\\SudokuBorderThicknessConverter.cs",
+              "RelativeToolTip": "Sudoku\\Helpers\\SudokuBorderThicknessConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-22T13:03:22.496Z",
+              "WhenOpened": "2025-10-25T16:15:11.208Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
               "Title": "Cell.cs",
               "DocumentMoniker": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\Models\\Cell.cs",
               "RelativeDocumentMoniker": "Sudoku\\Models\\Cell.cs",
               "ToolTip": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\Models\\Cell.cs",
               "RelativeToolTip": "Sudoku\\Models\\Cell.cs",
-              "ViewState": "AgIAADoAAABAzczMzMwQwE4AAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAE4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-22T14:21:34.982Z"
+              "WhenOpened": "2025-10-22T14:21:34.982Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "Difficulty.cs",
               "DocumentMoniker": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\Models\\Difficulty.cs",
               "RelativeDocumentMoniker": "Sudoku\\Models\\Difficulty.cs",
@@ -103,19 +104,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "GameView.xaml",
               "DocumentMoniker": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\Views\\GameView.xaml",
               "RelativeDocumentMoniker": "Sudoku\\Views\\GameView.xaml",
-              "ToolTip": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\Views\\GameView.xaml",
-              "RelativeToolTip": "Sudoku\\Views\\GameView.xaml",
+              "ToolTip": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\Views\\GameView.xaml*",
+              "RelativeToolTip": "Sudoku\\Views\\GameView.xaml*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-23T11:13:54.983Z",
+              "WhenOpened": "2025-10-24T19:53:21.777Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\App.xaml",
               "RelativeDocumentMoniker": "Sudoku\\App.xaml",
@@ -127,19 +128,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "SudokuSolverGenerator.cs",
-              "DocumentMoniker": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\Services\\SudokuSolverGenerator.cs",
-              "RelativeDocumentMoniker": "Sudoku\\Services\\SudokuSolverGenerator.cs",
-              "ToolTip": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\Services\\SudokuSolverGenerator.cs",
-              "RelativeToolTip": "Sudoku\\Services\\SudokuSolverGenerator.cs",
-              "ViewState": "AgIAAFwAAAAAZ2ZmZmYewBIAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-22T12:03:35.195Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\Views\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "Sudoku\\Views\\MainWindow.xaml.cs",
@@ -147,24 +136,36 @@
               "RelativeToolTip": "Sudoku\\Views\\MainWindow.xaml.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAqwCAAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-22T13:21:54.076Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-22T13:21:54.076Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "GameView.xaml.cs",
               "DocumentMoniker": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\Views\\GameView.xaml.cs",
               "RelativeDocumentMoniker": "Sudoku\\Views\\GameView.xaml.cs",
               "ToolTip": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\Views\\GameView.xaml.cs",
               "RelativeToolTip": "Sudoku\\Views\\GameView.xaml.cs",
-              "ViewState": "AgIAAEQAAAAAMzMzMzMTwFYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADwAAAAAoJmZmZnpvyUAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-22T13:52:45.198Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
+              "Title": "GameViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\ViewModels\\GameViewModel.cs",
+              "RelativeDocumentMoniker": "Sudoku\\ViewModels\\GameViewModel.cs",
+              "ToolTip": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\ViewModels\\GameViewModel.cs",
+              "RelativeToolTip": "Sudoku\\ViewModels\\GameViewModel.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAAAEUBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-22T13:03:22.496Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "Board.cs",
               "DocumentMoniker": "C:\\Users\\acica\\OneDrive\\Desktop\\cetvrta godina\\interakcija covjek racunar\\Sudoku\\Sudoku\\Models\\Board.cs",
               "RelativeDocumentMoniker": "Sudoku\\Models\\Board.cs",

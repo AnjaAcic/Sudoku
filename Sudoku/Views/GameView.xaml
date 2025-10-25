@@ -17,7 +17,7 @@
         <helpers:IsErrorToBrushConverter x:Key="IsErrorToBrushConverter"/>
         <helpers:IsGivenToBrushConverter x:Key="IsGivenToBrushConverter"/>
         <helpers:StarConverter x:Key="StarConverter"/>
-
+        <helpers:SudokuBorderThicknessConverter x:Key="SudokuBorderThicknessConverter"/>
     </Window.Resources>
 
     <Grid x:Name="BoardContainer" Margin="20">
@@ -84,7 +84,9 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="Black" BorderThickness="0.6" Background="{Binding IsError, Converter={StaticResource IsErrorToBrushConverter}}">
+                        <Border BorderBrush="Black" 
+                                BorderThickness="{Binding Converter={StaticResource SudokuBorderThicknessConverter}}"
+                                Background="{Binding IsError, Converter={StaticResource IsErrorToBrushConverter}}">
                             <TextBox Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     FontSize="16"
                                     FontWeight="Bold"
