@@ -31,8 +31,9 @@ namespace Sudoku.ViewModels
             LoadCommand = new RelayCommand(o => Load(o?.ToString() ?? "sudoku_save.json"));
             RestartCommand = new RelayCommand(o => Reset());
             EraseCommand = new RelayCommand(o => EnterNumber(0));
-            NewGameScreenCommand = new RelayCommand(o => GoToMain());
+            BackCommand = new RelayCommand(o => GoToMain());
             PauseCommand = new RelayCommand(o => PauseGame());
+            ResumeCommand = new RelayCommand(o => ResumeGame());
 
             Score = 0;
 
@@ -63,8 +64,9 @@ namespace Sudoku.ViewModels
         public ICommand LoadCommand { get; }
         public ICommand RestartCommand { get; }
         public ICommand EraseCommand { get; }
-        public ICommand NewGameScreenCommand { get; }
+        public ICommand BackCommand { get; }
         public ICommand PauseCommand { get; }
+        public ICommand ResumeCommand { get; }
 
 
         private bool _showErrors = true;
@@ -183,7 +185,6 @@ namespace Sudoku.ViewModels
             }
         }
 
-
         public void NewGame(Difficulty difficulty)
         {
             Difficulty = difficulty;
@@ -288,11 +289,19 @@ namespace Sudoku.ViewModels
         {
             Board.ResetToGiven();
             _undo.Clear();
+
             ElapsedSeconds = 0;
             Mistakes = 0;
+            Score = 0;
             Difficulty = _difficulty;
             IsGameOver = false;
+
+            IsPaused = false;
+
             Board.ValidateAll(ShowErrors);
+
+            Resume();
+
             (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
         }
 
@@ -344,6 +353,12 @@ namespace Sudoku.ViewModels
         {
             Pause();
             IsPaused = true;
+        }
+
+        private void ResumeGame()
+        {
+            Resume();
+            IsPaused = false;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

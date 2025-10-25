@@ -21,6 +21,13 @@ namespace Sudoku.Views
             DataContext = _vm;
 
             _vm.PropertyChanged += Vm_PropertyChanged;
+
+            _vm.OnRequestMainMenu += (s, e) =>
+            {
+                var main = new MainWindow();
+                main.Show();
+                this.Close();
+            };
         }
 
         private void Vm_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -32,35 +39,14 @@ namespace Sudoku.Views
                 else
                     AnimateOverlay(PauseOverlay, Visibility.Collapsed, 1, 0);
             }
-        }
 
-        private void btnPause_Click(object sender, RoutedEventArgs e)
-        {
-            if (_isPaused) return;
-            _isPaused = true;
-            _vm.Pause();
-
-            AnimateOverlay(PauseOverlay, Visibility.Visible, 0, 1);
-        }
-
-        private void btnResume_Click(object sender, RoutedEventArgs e)
-        {
-            if (!_isPaused) return;
-            _isPaused = false;
-            _vm.Resume();
-
-            AnimateOverlay(PauseOverlay, Visibility.Collapsed, 1, 0);
-        }
-
-        private void btnRestart_Click(object sender, RoutedEventArgs e)
-        {
-            _vm.Reset();
-        }
-
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            new MainWindow().Show();
-            Close();
+            if (e.PropertyName == nameof(_vm.IsGameOver))
+            {
+                if (_vm.IsGameOver)
+                    AnimateOverlay(PauseOverlay, Visibility.Visible, 0, 1);
+                else
+                    AnimateOverlay(PauseOverlay, Visibility.Collapsed, 1, 0);
+            }
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

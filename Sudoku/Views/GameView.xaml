@@ -38,7 +38,7 @@
 
             <Button Name="btnBack" 
                 Width="23" Height="23" 
-                Click="btnBack_Click"
+                Command="{Binding BackCommand}"
                 Style="{StaticResource MaterialDesignIconButton}">
                 <materialDesign:PackIcon Kind="ArrowBack"/>
             </Button>
@@ -179,11 +179,10 @@
 
                     <StackPanel Orientation="Vertical" Margin="0,16,0,0" HorizontalAlignment="Center">
                         <Button x:Name="btnResume" Content="Resume" Width="140" Height="36" Margin="0,0,0,8" 
-                                Click="btnResume_Click"
+                                Command="{Binding ResumeCommand}"
                                 Background="#1565C0" Foreground="White"/>
                         <Button x:Name="btnRestart" Content="Restart" Width="140" Height="36" 
                                 Command="{Binding RestartCommand}"
-                                Click="btnRestart_Click"
                                 Background="#1565C0" Foreground="White"/>
                     </StackPanel>
                 </StackPanel>                
@@ -235,11 +234,11 @@
                     </StackPanel>
 
                     <Button Content="Restart" Width="140" Height="36" Margin="0,16,0,0" 
-                    Command="{Binding ResetCommand}"
+                    Command="{Binding RestartCommand}"
                     Background="#1565C0" Foreground="White"/>
 
                     <Button Content="New Game" Width="140" Height="36" Margin="0,16,0,0" 
-                     Command="{Binding NewGameScreenCommand}"
+                     Command="{Binding BackCommand}"
                      Background="#1565C0" Foreground="White"/>      
                 </StackPanel>
             </Border>
