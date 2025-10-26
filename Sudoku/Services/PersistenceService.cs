@@ -13,15 +13,26 @@ namespace Sudoku.Services
         public int ElapsedSeconds { get; set; }
         public int Mistakes { get; set; }
         public int Score { get; set; }
-        public bool IsGameOver { get; set; }
         public int?[][] Cells { get; set; } = new int?[9][];
         public bool[][] Given { get; set; } = new bool[9][];
+        public bool IsGameOver { get; set; }
     }
 
     public static class PersistenceService
     {
-        public static void Save(Board board, Difficulty difficulty, int score, int elapsedSeconds, int mistakes, string path)
+        private static readonly string AppFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Sudoku");
+        public static readonly string Filename = Path.Combine(AppFolder, "sudoku_game.json");
+
+        private static void EnsureFolderExists()
         {
+            if (!Directory.Exists(AppFolder))
+                Directory.CreateDirectory(AppFolder);
+        }
+
+        public static void Save(Board board, Difficulty difficulty, int score, int elapsedSeconds, int mistakes, bool isGameOver)
+        {
+            EnsureFolderExists();
+
             var dto = new SaveDto
             {
                 Difficulty = difficulty,
@@ -30,18 +41,36 @@ namespace Sudoku.Services
                 Score = score,
                 Cells = board.ToArray(),
                 Given = board.ToGivenArray(),
-                IsGameOver = false
+                IsGameOver = isGameOver
             };
 
             var options = new JsonSerializerOptions { WriteIndented = true };
-            File.WriteAllText(path, JsonSerializer.Serialize(dto, options));
+            File.WriteAllText(Filename, JsonSerializer.Serialize(dto, options));
         }
 
-        public static SaveDto Load(string path)
+        public static SaveDto? Load()
         {
-            var json = File.ReadAllText(path);
-            return JsonSerializer.Deserialize<SaveDto>(json)!;
+            EnsureFolderExists();
+
+            if (!File.Exists(Filename)) return null;
+
+            try
+            {
+                var json = File.ReadAllText(Filename);
+                return JsonSerializer.Deserialize<SaveDto>(json);
+            }
+            catch
+            {
+                return null;
+            }
         }
+
+        public static void Delete()
+        {
+            if (File.Exists(Filename))
+                File.Delete(Filename);
+        }
+
 
     }
 

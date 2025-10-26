@@ -15,7 +15,6 @@ namespace Sudoku.ViewModels
     public class MainWindowViewModel : BaseViewModel
     {
         private readonly GameViewModel _gameVm = new GameViewModel();
-        private const string Filename = "sudoku_game.json";
 
         private bool _canResume;
 
@@ -28,12 +27,18 @@ namespace Sudoku.ViewModels
 
         public MainWindowViewModel()
         {
+
             ResumeCommand = new RelayCommand(_ => ResumeGame(), _ => CanResume);
             EasyCommand = new RelayCommand(_ => StartNew(Difficulty.Easy));
             MediumCommand = new RelayCommand(_ => StartNew(Difficulty.Medium));
             HardCommand = new RelayCommand(_ => StartNew(Difficulty.Hard));
 
-            ChechIfCanResume();
+            var dto = PersistenceService.Load();
+            if (dto != null && dto.IsGameOver)
+                PersistenceService.Delete();
+
+            _gameVm.OnGameOver += (s, e) => UpdateCanResume();
+            UpdateCanResume();
         }
 
         public ICommand ResumeCommand { get; }
@@ -51,38 +56,22 @@ namespace Sudoku.ViewModels
 
         private void ResumeGame()
         {
-            if (File.Exists(Filename))
-            {
-                try
-                {
-                    _gameVm.Load(Filename);
-                    OnStartGame?.Invoke(_gameVm);
-                }
-                catch
-                {
-                    CanResume = false;
-                }
-            }
-        }
-
-        private void ChechIfCanResume()
-        {
-            if (!File.Exists(Filename))
+            var dto = PersistenceService.Load();
+            if (dto == null)
             {
                 CanResume = false;
                 return;
             }
 
-            try
-            {
-                var json = File.ReadAllText(Filename);
-                var dto = JsonSerializer.Deserialize<SaveDto>(json);
-                CanResume = dto != null && !dto.IsGameOver;
-            }
-            catch
-            {
-                CanResume = false;
-            }
+            _gameVm.Load();
+            OnStartGame?.Invoke(_gameVm);
+        }
+
+        private void UpdateCanResume()
+        {
+            var dto = PersistenceService.Load();
+            CanResume = dto != null && !dto.IsGameOver;
+            (ResumeCommand as RelayCommand)?.RaiseCanExecuteChanged();
         }
     }
 

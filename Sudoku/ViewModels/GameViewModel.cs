@@ -12,7 +12,6 @@ namespace Sudoku.ViewModels
 {
     public class GameViewModel : BaseViewModel
     {
-        private const string Filename = "sudoku_game.json";
 
         public Board Board { get; } = new Board();
         private readonly UndoService _undo = new UndoService();
@@ -40,24 +39,7 @@ namespace Sudoku.ViewModels
             _timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
             _timer.Tick += (s, e) => ElapsedSeconds++;
 
-
-            if (File.Exists(Filename))
-            {
-                try
-                {
-                    Load(Filename);
-                }
-                catch
-                {
-                    NewGame(_difficulty);
-                }
-            }
-            else
-            {
-                NewGame(_difficulty);
-            }
-
-                _timer.Start();
+            _timer.Start();
         }
 
         private void GoToMain()
@@ -66,14 +48,8 @@ namespace Sudoku.ViewModels
             IsGameOver = false;
             Pause();
 
-            try
-            {
-                Save("sudoku_game.json");
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine($"Error while saving the game: {ex.Message}");
-            }
+            if(!IsGameOver)
+                Save();
 
             OnRequestMainMenu?.Invoke(this, EventArgs.Empty);
         }
@@ -224,7 +200,7 @@ namespace Sudoku.ViewModels
             Board.LoadFromArray(arr);
             Board.ValidateAll(ShowErrors);
             Resume();
-            Save(Filename);
+            Save();
         }
 
         public void SelectCell(int index)
@@ -258,7 +234,7 @@ namespace Sudoku.ViewModels
             _undo.Push(new Move(SelectedIndex, old, cell.Value));
             (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
 
-            Save(Filename);
+            Save();
 
         }
 
@@ -271,7 +247,7 @@ namespace Sudoku.ViewModels
             Board.ValidateAll(ShowErrors);
             (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
 
-            Save(Filename);
+            Save();
         }
 
         public void Hint()
@@ -303,14 +279,17 @@ namespace Sudoku.ViewModels
             }
         }
 
-        public void Save(string path)
+        public void Save()
         {
-            PersistenceService.Save(Board, Difficulty, Score, ElapsedSeconds, Mistakes, path);
+
+            PersistenceService.Save(Board, Difficulty, Score, ElapsedSeconds, Mistakes, IsGameOver && !Board.IsComplete() ? false : IsGameOver);
         }
 
-        public void Load(string path)
+        public void Load()
         {
-            var dto = PersistenceService.Load(path);
+            var dto = PersistenceService.Load();
+            if (dto == null) return;
+
             Difficulty = dto.Difficulty;
             ElapsedSeconds = dto.ElapsedSeconds;
             Mistakes = dto.Mistakes;
@@ -382,8 +361,9 @@ namespace Sudoku.ViewModels
                 StarCount = 0;
             }
 
-            if (File.Exists(Filename))
-                File.Delete(Filename);
+            PersistenceService.Delete();
+
+            OnGameOver?.Invoke(this, EventArgs.Empty);
         }
 
         private void PauseGame()
@@ -399,5 +379,6 @@ namespace Sudoku.ViewModels
         }
 
         public event EventHandler? OnRequestMainMenu;
+        public event EventHandler? OnGameOver;
     }
 }
