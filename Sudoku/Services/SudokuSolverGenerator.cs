@@ -8,9 +8,9 @@ namespace Sudoku.Services
     {
         private static Random _rand = new Random();
 
-        public static int?[,] GeneratePuzzle(Difficulty difficulty)
+        public static int?[][] GeneratePuzzle(Difficulty difficulty)
         {
-            int?[,] board = new int?[9, 9];
+            int?[][] board = GenerateEmptyBoard();
 
             FillDiagonalBlocks(board);
 
@@ -28,21 +28,29 @@ namespace Sudoku.Services
             return board;
         }
 
-        public static bool Solve(int?[,] board)
+        private static int?[][] GenerateEmptyBoard()
+        {
+            int?[][] board = new int?[9][];
+            for (int i = 0; i < 9; i++)
+                board[i] = new int?[9];
+            return board;
+        }
+
+        public static bool Solve(int?[][] board)
         {
             for (int r = 0; r < 9; r++)
             {
                 for (int c = 0; c < 9; c++)
                 {
-                    if (board[r, c] == null)
+                    if (board[r][c] == null)
                     {
                         for (int v = 1; v <= 9; v++)
                         {
                             if (IsValidPlacement(board, r, c, v))
                             {
-                                board[r, c] = v;
+                                board[r][c] = v;
                                 if (Solve(board)) return true;
-                                board[r, c] = null;
+                                board[r][c] = null;
                             }
                         }
                         return false;
@@ -52,29 +60,29 @@ namespace Sudoku.Services
             return true;
         }
 
-        public static bool IsValidPlacement(int?[,] board, int row, int col, int val)
+        public static bool IsValidPlacement(int?[][] board, int row, int col, int val)
         {
             for (int i = 0; i < 9; i++)
             {
-                if (board[row, i] == val) return false;
-                if (board[i, col] == val) return false;
+                if (board[row][i] == val) return false;
+                if (board[i][col] == val) return false;
             }
 
             int sr = (row / 3) * 3, sc = (col / 3) * 3;
             for (int r = sr; r < sr + 3; r++)
                 for (int c = sc; c < sc + 3; c++)
-                    if (board[r, c] == val) return false;
+                    if (board[r][c] == val) return false;
 
             return true;
         }
 
-        private static void FillDiagonalBlocks(int?[,] board)
+        private static void FillDiagonalBlocks(int?[][] board)
         {
             FillBlock(board, 0, 0); 
             FillBlock(board, 3, 3);
             FillBlock(board, 6, 6); 
         }
-        private static void FillBlock(int?[,] board, int startRow, int startCol)
+        private static void FillBlock(int?[][] board, int startRow, int startCol)
         {
             var nums = Enumerable.Range(1, 9).ToArray();
             Shuffle(nums);
@@ -82,18 +90,18 @@ namespace Sudoku.Services
 
             for (int r = startRow; r < startRow + 3; r++)
                 for (int c = startCol; c < startCol + 3; c++)
-                    board[r, c] = nums[idx++];
+                    board[r][c] = nums[idx++];
         }
-        private static void RemoveNumbers(int?[,] board, int count)
+        private static void RemoveNumbers(int?[][] board, int count)
         {
             int removed = 0;
             while (removed < count)
             {
                 int r = _rand.Next(9);
                 int c = _rand.Next(9);
-                if (board[r, c] != null)
+                if (board[r][c] != null)
                 {
-                    board[r, c] = null;
+                    board[r][c] = null;
                     removed++;
                 }
             }

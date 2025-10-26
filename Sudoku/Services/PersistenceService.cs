@@ -12,19 +12,25 @@ namespace Sudoku.Services
         public Difficulty Difficulty { get; set; } 
         public int ElapsedSeconds { get; set; }
         public int Mistakes { get; set; }
-        public int?[,] Cells { get; set; } = new int?[9, 9]; 
+        public int Score { get; set; }
+        public bool IsGameOver { get; set; }
+        public int?[][] Cells { get; set; } = new int?[9][];
+        public bool[][] Given { get; set; } = new bool[9][];
     }
 
     public static class PersistenceService
     {
-        public static void Save(Board board, Difficulty difficulty, int elapsedSeconds, int mistakes, string path)
+        public static void Save(Board board, Difficulty difficulty, int score, int elapsedSeconds, int mistakes, string path)
         {
             var dto = new SaveDto
             {
                 Difficulty = difficulty,
                 ElapsedSeconds = elapsedSeconds,
                 Mistakes = mistakes,
-                Cells = board.ToArray() 
+                Score = score,
+                Cells = board.ToArray(),
+                Given = board.ToGivenArray(),
+                IsGameOver = false
             };
 
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -37,12 +43,6 @@ namespace Sudoku.Services
             return JsonSerializer.Deserialize<SaveDto>(json)!;
         }
 
-        public static Board ToBoard(SaveDto dto)
-        {
-            var board = new Board();
-            board.LoadFromArray(dto.Cells); 
-            return board;
-        }
     }
 
 }

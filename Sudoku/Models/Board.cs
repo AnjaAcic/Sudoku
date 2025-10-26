@@ -24,24 +24,54 @@ namespace Sudoku.Models
         public Cell GetCell(int row, int col) => Cells[row * 9 + col];
         public Cell GetCell(int index) => Cells[index];
 
-        public int?[,] ToArray()
+        public int?[][] ToArray()
         {
-            var arr = new int?[9, 9];
+            var arr = new int?[9][];
+            for (int i = 0; i < 9; i++)
+                arr[i] = new int?[9];
+
             foreach (var cell in Cells)
-                arr[cell.Row, cell.Col] = cell.Value;
+                arr[cell.Row][cell.Col] = cell.Value;
             return arr;
         }
 
-        public void LoadFromArray(int?[,] arr)
+        public void LoadFromArray(int?[][] arr)
+        {
+            for (int r = 0; r < 9; r++)
+                for (int c = 0; c < 9; c++)
+                {
+                    var cell = GetCell(r, c);
+                    cell.Value = arr[r][c];
+                    cell.IsGiven = arr[r][c].HasValue;
+                    cell.IsError = false;
+                }
+        }
+
+
+        public void LoadFromArray(int?[][] values, bool[][] given)
         {
             for(int r = 0; r < 9; r++)
                 for(int c =0; c < 9; c++)
                 {
                     var cell = GetCell(r, c);
-                    cell.Value = arr[r, c];
-                    cell.IsGiven = arr[r, c].HasValue;
+                    cell.Value = values[r][c];
+                    cell.IsGiven = given[r][c];
                     cell.IsError = false;
                 }
+        }
+
+        public bool[][] ToGivenArray()
+        {
+            var arr = new bool[9][];
+            for (int i = 0; i < 9; i++)
+                arr[i] = new bool[9];
+
+            foreach (var cell in Cells)
+            {
+                arr[cell.Row][cell.Col] = cell.IsGiven; 
+            }
+
+            return arr;
         }
 
         public void ResetToGiven()

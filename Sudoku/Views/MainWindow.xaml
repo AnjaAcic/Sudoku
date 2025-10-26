@@ -38,7 +38,8 @@
         <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical">
             <Button Content="Resume" Width="200" Height="45" FontSize="18" Foreground="White" Margin="10"
                     BorderThickness="0" BorderBrush="Transparent"
-                    Name="btnResume" Click="btnResume_Click">
+                    Name="btnResume" Command="{Binding ResumeCommand}"
+                    Visibility="{Binding CanResume, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="#5B2C6F" Offset="0"/>
@@ -49,7 +50,7 @@
 
             <Button Content="Easy" Width="200" Height="45" FontSize="18" Foreground="White" Margin="10"
                     BorderThickness="0" BorderBrush="Transparent"
-                    Name="btnEasy" Click="btnEasy_Click">
+                    Name="btnEasy" Command="{Binding EasyCommand}">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="#5B2C6F" Offset="0"/>
@@ -60,7 +61,7 @@
 
             <Button Content="Medium" Width="200" Height="45" FontSize="18" Foreground="White" Margin="10"
                     BorderThickness="0" BorderBrush="Transparent"
-                    Name="btnMedium" Click="btnMedium_Click">
+                    Name="btnMedium" Command="{Binding MediumCommand}">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="#5B2C6F" Offset="0"/>
@@ -71,7 +72,7 @@
 
             <Button Content="Hard" Width="200" Height="45" FontSize="18" Foreground="White" Margin="10"
                     BorderThickness="0" BorderBrush="Transparent"
-                    Name="btnHard"  Click="btnHard_Click">
+                    Name="btnHard"  Command="{Binding HardCommand}">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="#5B2C6F" Offset="0"/>

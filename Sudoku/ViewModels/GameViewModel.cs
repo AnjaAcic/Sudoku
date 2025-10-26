@@ -3,19 +3,21 @@ using Sudoku.Models;
 using Sudoku.Services;
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace Sudoku.ViewModels
 {
-    public class GameViewModel : INotifyPropertyChanged
+    public class GameViewModel : BaseViewModel
     {
+        private const string Filename = "sudoku_game.json";
+
         public Board Board { get; } = new Board();
         private readonly UndoService _undo = new UndoService();
         private readonly DispatcherTimer _timer;
-        
-
+       
         public GameViewModel()
         {
             NewGameCommand = new RelayCommand(o => 
@@ -27,8 +29,6 @@ namespace Sudoku.ViewModels
             NumberCommand = new RelayCommand(o => EnterNumber(ConvertToInt(o)));
             UndoCommand = new RelayCommand(o => Undo(), o => _undo.CanUndo);
             HintCommand = new RelayCommand(o => Hint());
-            SaveCommand = new RelayCommand(o => Save(o?.ToString() ?? "sudoku_save.json"));
-            LoadCommand = new RelayCommand(o => Load(o?.ToString() ?? "sudoku_save.json"));
             RestartCommand = new RelayCommand(o => Reset());
             EraseCommand = new RelayCommand(o => EnterNumber(0));
             BackCommand = new RelayCommand(o => GoToMain());
@@ -40,12 +40,41 @@ namespace Sudoku.ViewModels
             _timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
             _timer.Tick += (s, e) => ElapsedSeconds++;
 
-            NewGame(_difficulty);
-            _timer.Start();
+
+            if (File.Exists(Filename))
+            {
+                try
+                {
+                    Load(Filename);
+                }
+                catch
+                {
+                    NewGame(_difficulty);
+                }
+            }
+            else
+            {
+                NewGame(_difficulty);
+            }
+
+                _timer.Start();
         }
 
         private void GoToMain()
         {
+            IsPaused = false;
+            IsGameOver = false;
+            Pause();
+
+            try
+            {
+                Save("sudoku_game.json");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error while saving the game: {ex.Message}");
+            }
+
             OnRequestMainMenu?.Invoke(this, EventArgs.Empty);
         }
 
@@ -60,8 +89,6 @@ namespace Sudoku.ViewModels
         public ICommand NumberCommand { get; }
         public ICommand UndoCommand { get; }
         public ICommand HintCommand { get; }
-        public ICommand SaveCommand { get; }
-        public ICommand LoadCommand { get; }
         public ICommand RestartCommand { get; }
         public ICommand EraseCommand { get; }
         public ICommand BackCommand { get; }
@@ -187,6 +214,7 @@ namespace Sudoku.ViewModels
 
         public void NewGame(Difficulty difficulty)
         {
+            _difficulty = difficulty;
             Difficulty = difficulty;
             _undo.Clear();
             ElapsedSeconds = 0;
@@ -196,6 +224,7 @@ namespace Sudoku.ViewModels
             Board.LoadFromArray(arr);
             Board.ValidateAll(ShowErrors);
             Resume();
+            Save(Filename);
         }
 
         public void SelectCell(int index)
@@ -229,6 +258,8 @@ namespace Sudoku.ViewModels
             _undo.Push(new Move(SelectedIndex, old, cell.Value));
             (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
 
+            Save(Filename);
+
         }
 
         public void Undo()
@@ -239,12 +270,14 @@ namespace Sudoku.ViewModels
             cell.Value = move.OldValue;
             Board.ValidateAll(ShowErrors);
             (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
+
+            Save(Filename);
         }
 
         public void Hint()
         {
             var arr = Board.ToArray();
-            var copy = new int?[9, 9];
+            var copy = new int?[9][];
             Array.Copy(arr, copy, arr.Length);
 
             if (SudokuSolverGenerator.Solve(copy))
@@ -252,14 +285,14 @@ namespace Sudoku.ViewModels
                 for (int r = 0; r < 9; r++)
                     for (int c = 0; c < 9; c++)
                     {
-                        if (arr[r, c] == null)
+                        if (arr[r][c] == null)
                         {
                             var idx = r * 9 + c;
                             if(idx == SelectedIndex)
                             {
                                 var cell = Board.GetCell(idx);
                                 var old = cell.Value;
-                                cell.Value = copy[r, c];
+                                cell.Value = copy[r][c];
                                 _undo.Push(new Move(idx, old, cell.Value));
                                 Board.ValidateAll(ShowErrors);
                                 (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
@@ -272,7 +305,7 @@ namespace Sudoku.ViewModels
 
         public void Save(string path)
         {
-            PersistenceService.Save(Board, Difficulty, ElapsedSeconds, Mistakes, path);
+            PersistenceService.Save(Board, Difficulty, Score, ElapsedSeconds, Mistakes, path);
         }
 
         public void Load(string path)
@@ -281,7 +314,8 @@ namespace Sudoku.ViewModels
             Difficulty = dto.Difficulty;
             ElapsedSeconds = dto.ElapsedSeconds;
             Mistakes = dto.Mistakes;
-            Board.LoadFromArray(dto.Cells);
+            Score = dto.Score;
+            Board.LoadFromArray(dto.Cells, dto.Given);
             Board.ValidateAll(ShowErrors);
         }
 
@@ -347,6 +381,9 @@ namespace Sudoku.ViewModels
             {
                 StarCount = 0;
             }
+
+            if (File.Exists(Filename))
+                File.Delete(Filename);
         }
 
         private void PauseGame()
@@ -360,10 +397,6 @@ namespace Sudoku.ViewModels
             Resume();
             IsPaused = false;
         }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string? name = null)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
         public event EventHandler? OnRequestMainMenu;
     }

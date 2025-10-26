@@ -17,35 +17,21 @@ namespace Sudoku.Views
 {
     public partial class MainWindow : Window
     {
-        private readonly GameViewModel _vm;
 
         public MainWindow()
         {
             InitializeComponent();
-            _vm = DataContext as GameViewModel ?? new GameViewModel();
-            DataContext = _vm;
+            var vm = new MainWindowViewModel();
+            vm.OnStartGame += StartGame;
+            DataContext = vm;
         }
 
-        private void btnResume_Click(object sender, RoutedEventArgs e)
+        private void StartGame(GameViewModel gameVm)
         {
-            var game = new GameView(_vm);
+            var game = new GameView(gameVm);
             game.Show();
             this.Close();
         }
 
-        private void btnEasy_Click(object sender, RoutedEventArgs e) => OpenNew("easy");
-
-        private void btnMedium_Click(object sender, RoutedEventArgs e) => OpenNew("medium");
-
-        private void btnHard_Click(object sender, RoutedEventArgs e) => OpenNew("hard");
-
-        private void OpenNew(string difficulty)
-        {
-            var vm = new GameViewModel();
-            vm.NewGameCommand.Execute(difficulty);
-            var game = new GameView(vm);
-            game.Show();
-            this.Close();
-        }
     }
 }
