@@ -17,13 +17,18 @@ namespace Sudoku.ViewModels
         private readonly GameViewModel _gameVm = new GameViewModel();
 
         private bool _canResume;
-
-        public bool CanResume 
-        { 
-            get { return _canResume; }
-            set { _canResume = value; }
+        public bool CanResume
+        {
+            get => _canResume;
+            set
+            {
+                if (_canResume != value)
+                {
+                    _canResume = value;
+                    OnPropertyChanged();
+                }
+            }
         }
-
 
         public MainWindowViewModel()
         {
@@ -32,10 +37,6 @@ namespace Sudoku.ViewModels
             EasyCommand = new RelayCommand(_ => StartNew(Difficulty.Easy));
             MediumCommand = new RelayCommand(_ => StartNew(Difficulty.Medium));
             HardCommand = new RelayCommand(_ => StartNew(Difficulty.Hard));
-
-            var dto = PersistenceService.Load();
-            if (dto != null && dto.IsGameOver)
-                PersistenceService.Delete();
 
             _gameVm.OnGameOver += (s, e) => UpdateCanResume();
             UpdateCanResume();
@@ -65,6 +66,7 @@ namespace Sudoku.ViewModels
 
             _gameVm.Load();
             OnStartGame?.Invoke(_gameVm);
+            UpdateCanResume();
         }
 
         private void UpdateCanResume()
