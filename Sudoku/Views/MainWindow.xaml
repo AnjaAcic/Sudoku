@@ -88,11 +88,11 @@
                     Background="#5B2C6F" Style="{StaticResource RoundedButton}"/>
 
             <Button Content="Easy" Width="200" Height="50" Margin="0,8,0,8"
-                    Command="{Binding EasyCommand}" Background="#3498DB" Style="{StaticResource RoundedButton}"/>
+                    Command="{Binding EasyCommand}" Background="#8E44AD" Style="{StaticResource RoundedButton}"/>
             <Button Content="Medium" Width="200" Height="50" Margin="0,8,0,8"
-                    Command="{Binding MediumCommand}" Background="#F39C12" Style="{StaticResource RoundedButton}"/>
+                    Command="{Binding MediumCommand}" Background="#9B59B6" Style="{StaticResource RoundedButton}"/>
             <Button Content="Hard" Width="200" Height="50" Margin="0,8,0,8"
-                    Command="{Binding HardCommand}" Background="#E74C3C" Style="{StaticResource RoundedButton}"/>
+                    Command="{Binding HardCommand}" Background="#AF7AC5" Style="{StaticResource RoundedButton}"/>
         </StackPanel>
     </Grid>
 </Window>
