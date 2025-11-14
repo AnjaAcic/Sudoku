@@ -15,6 +15,8 @@
                                              PrimaryColor="Indigo"
                                              SecondaryColor="LightBlue" />
 
+                <ResourceDictionary Source="Resources/Styles.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
 
 
@@ -22,7 +24,9 @@
             <helpers:IsErrorToBrushConverter x:Key="IsErrorToBrushConverter"/>
             <helpers:IsGivenToBrushConverter x:Key="IsGivenToBrushConverter"/>
             <helpers:StarConverter x:Key="StarConverter"/>
-
+            <helpers:BlockBackgroundConverter x:Key="BlockBackgroundConverter"/>
+            <helpers:SudokuBorderThicknessConverter x:Key="SudokuBorderThicknessConverter"/>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

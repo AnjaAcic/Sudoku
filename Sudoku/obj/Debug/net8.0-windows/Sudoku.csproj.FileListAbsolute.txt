@@ -29,3 +29,4 @@ C:\Users\acica\OneDrive\Desktop\cetvrta godina\interakcija covjek racunar\Sudoku
 C:\Users\acica\OneDrive\Desktop\cetvrta godina\interakcija covjek racunar\Sudoku\Sudoku\obj\Debug\net8.0-windows\Views\GameView.baml
 C:\Users\acica\OneDrive\Desktop\cetvrta godina\interakcija covjek racunar\Sudoku\Sudoku\obj\Debug\net8.0-windows\Views\MainWindow.baml
 C:\Users\acica\OneDrive\Desktop\cetvrta godina\interakcija covjek racunar\Sudoku\Sudoku\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Users\acica\OneDrive\Desktop\cetvrta godina\interakcija covjek racunar\Sudoku\Sudoku\obj\Debug\net8.0-windows\Resources\Styles.baml
