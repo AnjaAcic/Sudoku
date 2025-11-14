@@ -43,9 +43,9 @@ namespace Sudoku.Views
             if (e.PropertyName == nameof(_vm.IsGameOver))
             {
                 if (_vm.IsGameOver)
-                    AnimateOverlay(PauseOverlay, Visibility.Visible, 0, 1);
+                    AnimateOverlay(GameOverOverlay, Visibility.Visible, 0, 1);
                 else
-                    AnimateOverlay(PauseOverlay, Visibility.Collapsed, 1, 0);
+                    AnimateOverlay(GameOverOverlay, Visibility.Collapsed, 1, 0);
             }
         }
 

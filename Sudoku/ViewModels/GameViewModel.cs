@@ -180,28 +180,30 @@ namespace Sudoku.ViewModels
             if (!IsGameActive) return;
             var arr = Board.ToArray();
             var copy = new int?[9][];
-            Array.Copy(arr, copy, arr.Length);
+            for (int i = 0; i < 9; i++)
+                copy[i] = (int?[])arr[i].Clone();
 
             if (SudokuSolverGenerator.Solve(copy))
             {
-                for (int r = 0; r < 9; r++)
-                    for (int c = 0; c < 9; c++)
-                        if (arr[r][c] == null)
-                        {
-                            var idx = r * 9 + c;
-                            if (idx == SelectedIndex)
-                            {
-                                var cell = Board.GetCell(idx);
-                                var old = cell.Value;
-                                cell.Value = copy[r][c];
-                                _undo.Push(new Move(idx, old, cell.Value));
-                                Board.ValidateAll(ShowErrors);
-                                (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
-                                return;
-                            }
-                        }
+                int targetIndex = SelectedIndex;
+                if (targetIndex < 0 || Board.GetCell(targetIndex).Value != null)
+                {
+                    var emptyCells = Board.Cells.Where(c => c.Value == null).ToList();
+                    if (emptyCells.Count == 0) return;
+                    targetIndex = emptyCells[new Random().Next(emptyCells.Count)].Index;
+                }
+
+                var cell = Board.GetCell(targetIndex);
+                var old = cell.Value;
+                int r = targetIndex / 9;
+                int c = targetIndex % 9;
+                cell.Value = copy[r][c];
+                _undo.Push(new Move(targetIndex, old, cell.Value));
+                Board.ValidateAll(ShowErrors);
+                (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
             }
         }
+
 
         public void PauseGame() { Pause(); IsPaused = true; }
         public void ResumeGame() { Resume(); IsPaused = false; }
@@ -250,12 +252,21 @@ namespace Sudoku.ViewModels
 
         private void GoToMain()
         {
+            Pause(); 
             IsPaused = false;
-            IsGameOver = false;
-            Pause();
-            Save();
+
+            if (!IsGameOver)
+            {
+                Save();
+            }
+            else
+            {
+                PersistenceService.Delete();
+            }
+
             OnRequestMainMenu?.Invoke(this, EventArgs.Empty);
         }
+
 
         public event EventHandler? OnGameOver;
 

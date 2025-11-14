@@ -26,6 +26,7 @@ namespace Sudoku.ViewModels
                 {
                     _canResume = value;
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(CanResume));
                 }
             }
         }
@@ -73,8 +74,10 @@ namespace Sudoku.ViewModels
         {
             var dto = PersistenceService.Load();
             CanResume = dto != null && !dto.IsGameOver;
+            OnPropertyChanged(nameof(CanResume));
             (ResumeCommand as RelayCommand)?.RaiseCanExecuteChanged();
         }
+
     }
 
 }
