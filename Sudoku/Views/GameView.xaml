@@ -94,7 +94,7 @@
                             <Binding Path="Index" Converter="{StaticResource BlockBackgroundConverter}"/>
                         </Border.Background>
 
-                        <TextBox Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        <TextBox Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}" 
                                  FontSize="18"
                                  FontWeight="SemiBold"
                                  TextAlignment="Center"

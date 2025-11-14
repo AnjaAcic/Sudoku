@@ -51,17 +51,24 @@ namespace Sudoku.Views
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !int.TryParse(e.Text, out int value) || value < 1 || value > 9;
-
-            if (!e.Handled)
+            if (!int.TryParse(e.Text, out int value) || value < 1 || value > 9)
             {
-                if (sender is TextBox tb && tb.Tag is int index)
-                {
-                    _vm.SelectCell(index);
-                    _vm.EnterNumber(value);
-                }
+                e.Handled = true;
+                if (sender is TextBox tb)
+                    tb.Text = "";
+                return;
+            }
+
+            e.Handled = false;
+
+            if (sender is TextBox tb2 && tb2.Tag is int index)
+            {
+                _vm.SelectCell(index);
+                _vm.EnterNumber(value);
             }
         }
+
+
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -94,6 +101,7 @@ namespace Sudoku.Views
                 {
                     _vm.SelectCell(index);
                     _vm.EnterNumber(0); 
+                    tb.Text = ""; 
                     e.Handled = true;
                 }
             }
